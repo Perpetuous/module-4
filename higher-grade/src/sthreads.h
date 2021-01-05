@@ -55,7 +55,7 @@ int init();
    start - a function with zero arguments returning void.
 
    On success the positive thread ID of the new thread is returned. On failure a
-   negative value is returned. 
+   negative value is returned.
 */
 tid_t spawn(void (*start)());
 
@@ -78,12 +78,15 @@ void  done();
 
 /* Join with a terminated thread
 
-   A thread calling join() will be suspended and change state from running to
+   The join() function waits for the specified thread to terminate.
+   If the specified thread has already terminated, join() should return immediately.
+
+   A thread calling join(thread) will be suspended and change state from running to
    waiting and trigger the thread scheduler to dispatch one of the ready
-   threads. The suspended thread will change state from waiting to ready once another
-   thread calls done() and the join() should then return the thread id of the
+   threads. The suspended thread will change state from waiting to ready once the thread with
+   thread id thread calls done and join() should then return the thread id of the
    terminated thread.
 */
-tid_t join();
+tid_t join(tid_t thread);
 
 #endif
